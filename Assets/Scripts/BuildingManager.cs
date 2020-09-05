@@ -4,17 +4,31 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour {
 
-    [SerializeField] private BuildingTypeScriptableObject buildingType;
-
+    private BuildingTypeScriptableObject _buildingType;
+    private BuildingTypeListScriptableObject _buildingTypes;
     private Camera _cam;
 
     private void Awake() {
         _cam = Camera.main;
     }
 
+    private void Start() {
+        _buildingTypes = Resources.Load<BuildingTypeListScriptableObject>("BuildingTypeList");
+        _buildingType = _buildingTypes.types[0];
+    }
+
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            Instantiate(buildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
+            Instantiate(_buildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
+        }
+        // TESTING - select building type
+        if (Input.GetKeyDown(KeyCode.T)) {
+            Debug.Log("Select building #0");
+            _buildingType = _buildingTypes.types[0];
+        }
+        if (Input.GetKeyDown(KeyCode.Y)) {
+            Debug.Log("Select building #1");
+            _buildingType = _buildingTypes.types[1];
         }
     }
 
