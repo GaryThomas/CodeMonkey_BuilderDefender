@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour {
 
-    [SerializeField] private Transform pfWoodHarvester;
+    [SerializeField] private BuildingTypeScriptableObject buildingType;
 
     private Camera _cam;
 
@@ -14,7 +14,7 @@ public class BuildingManager : MonoBehaviour {
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            Instantiate(pfWoodHarvester, GetMouseWorldPosition(), Quaternion.identity);
+            Instantiate(buildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
         }
     }
 
