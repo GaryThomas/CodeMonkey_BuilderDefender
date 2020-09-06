@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceManager : Singleton<ResourceManager> {
+    public event EventHandler OnResourceAmountsChanged;
+
     private Dictionary<ResourceTypeScriptableObject, int> _resourceAmounts;
     private ResourceTypeListScriptableObject _resourceTypes;
 
@@ -36,6 +39,11 @@ public class ResourceManager : Singleton<ResourceManager> {
 
     public void AddResources(ResourceTypeScriptableObject resource, int amount) {
         _resourceAmounts[resource] += amount;
+        OnResourceAmountsChanged?.Invoke(this, EventArgs.Empty);
         ShowResourceAmounts();
+    }
+
+    public int GetResourceAmount(ResourceTypeScriptableObject resource) {
+        return _resourceAmounts[resource];
     }
 }
