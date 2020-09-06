@@ -9,12 +9,16 @@ public class BuildingManager : MonoBehaviour {
     private Camera _cam;
 
     private void Awake() {
-        _cam = Camera.main;
+        _buildingTypes = Resources.Load<BuildingTypeListScriptableObject>(typeof(BuildingTypeListScriptableObject).Name);
+        if (_buildingTypes == null) {
+            Debug.Log("*** Building Types List not found");
+            return;
+        }
+        _buildingType = _buildingTypes.types[0];
     }
 
     private void Start() {
-        _buildingTypes = Resources.Load<BuildingTypeListScriptableObject>("BuildingTypeList");
-        _buildingType = _buildingTypes.types[0];
+        _cam = Camera.main;
     }
 
     private void Update() {
@@ -22,7 +26,7 @@ public class BuildingManager : MonoBehaviour {
             Instantiate(_buildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
         }
         // TESTING - select building type
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.U)) {
             Debug.Log("Select building #0");
             _buildingType = _buildingTypes.types[0];
         }
