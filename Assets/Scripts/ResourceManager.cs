@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour {
+public class ResourceManager : Singleton<ResourceManager> {
     private Dictionary<ResourceTypeScriptableObject, int> _resourceAmounts;
     private ResourceTypeListScriptableObject _resourceTypes;
 
-    private void Awake() {
+    public override void Awake() {
+        base.Awake();
         _resourceTypes = Resources.Load<ResourceTypeListScriptableObject>(typeof(ResourceTypeListScriptableObject).Name);
         if (_resourceTypes == null) {
             Debug.Log("*** Resource Types List not found");
@@ -23,7 +24,6 @@ public class ResourceManager : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.R)) {
             AddResources(_resourceTypes.types[1], 2);
-            ShowResourceAmounts();
         }
     }
 
@@ -36,5 +36,6 @@ public class ResourceManager : MonoBehaviour {
 
     public void AddResources(ResourceTypeScriptableObject resource, int amount) {
         _resourceAmounts[resource] += amount;
+        ShowResourceAmounts();
     }
 }
