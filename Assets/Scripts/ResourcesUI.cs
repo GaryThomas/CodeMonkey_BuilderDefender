@@ -21,6 +21,7 @@ public class ResourcesUI : MonoBehaviour {
         }
         // Hide template
         resourceUITemplate.gameObject.SetActive(false);
+        resourceUITemplate.Find("selected").gameObject.SetActive(false);
         _resourceTypeTransforms = new Dictionary<ResourceTypeScriptableObject, Transform>();
         foreach (ResourceTypeScriptableObject resource in _resourceTypes.types) {
             Transform resourceTransform = Instantiate(resourceUITemplate, transform);

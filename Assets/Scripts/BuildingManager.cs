@@ -1,20 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class BuildingManager : MonoBehaviour {
+public class BuildingManager : Singleton<BuildingManager> {
 
-    private BuildingTypeScriptableObject _buildingType;
+    private BuildingTypeScriptableObject _activeBuildingType;
     private BuildingTypeListScriptableObject _buildingTypes;
     private Camera _cam;
 
-    private void Awake() {
+    public override void Awake() {
+        base.Awake();
         _buildingTypes = Resources.Load<BuildingTypeListScriptableObject>(typeof(BuildingTypeListScriptableObject).Name);
         if (_buildingTypes == null) {
             Debug.Log("*** Building Types List not found");
             return;
         }
-        _buildingType = _buildingTypes.types[0];
+        _activeBuildingType = null;
     }
 
     private void Start() {
@@ -22,17 +24,8 @@ public class BuildingManager : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            Instantiate(_buildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
-        }
-        // TESTING - select building type
-        if (Input.GetKeyDown(KeyCode.U)) {
-            Debug.Log("Select building #0");
-            _buildingType = _buildingTypes.types[0];
-        }
-        if (Input.GetKeyDown(KeyCode.Y)) {
-            Debug.Log("Select building #1");
-            _buildingType = _buildingTypes.types[1];
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && _activeBuildingType) {
+            Instantiate(_activeBuildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
         }
     }
 
@@ -40,6 +33,9 @@ public class BuildingManager : MonoBehaviour {
         Vector3 pos = _cam.ScreenToWorldPoint(Input.mousePosition);
         pos.z = 0f;
         return pos;
+    }
 
+    public void SelectBuildingType(BuildingTypeScriptableObject buildingType) {
+        _activeBuildingType = buildingType;
     }
 }
