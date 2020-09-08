@@ -23,24 +23,9 @@ public class ResourceManager : Singleton<ResourceManager> {
         }
     }
 
-    // DEBUG
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.R)) {
-            AddResources(_resourceTypes.types[1], 2);
-        }
-    }
-
-    // DEBUG
-    private void ShowResourceAmounts() {
-        foreach (ResourceTypeScriptableObject resource in _resourceTypes.types) {
-            Debug.Log(resource.nameString + ": " + _resourceAmounts[resource]);
-        }
-    }
-
     public void AddResources(ResourceTypeScriptableObject resource, int amount) {
         _resourceAmounts[resource] += amount;
         OnResourceAmountsChanged?.Invoke(this, EventArgs.Empty);
-        ShowResourceAmounts();
     }
 
     public int GetResourceAmount(ResourceTypeScriptableObject resource) {
