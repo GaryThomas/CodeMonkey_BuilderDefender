@@ -17,7 +17,7 @@ public class ResourceGenerator : MonoBehaviour {
         _timer -= Time.deltaTime;
         if (_timer <= 0f) {
             _timer += _timerMax;
-            Debug.Log("Ding! " + _buildingType.resourceGeneratorData.resourceType.nameString);
+            // Debug.Log("Ding! " + _buildingType.resourceGeneratorData.resourceType.nameString);
             ResourceManager.Instance.AddResources(_buildingType.resourceGeneratorData.resourceType, 1);
         }
     }
