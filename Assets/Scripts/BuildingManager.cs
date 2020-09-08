@@ -33,7 +33,7 @@ public class BuildingManager : Singleton<BuildingManager> {
 
     public void SelectBuildingType(BuildingTypeScriptableObject buildingType) {
         _activeBuildingType = buildingType;
-        Debug.Log("BM Select building " + buildingType.nameString + ", handler: " + OnActiveBuildingTypeChanged);
+        // Debug.Log("BM Select building " + buildingType.nameString + ", handler: " + OnActiveBuildingTypeChanged);
         OnActiveBuildingTypeChanged?.Invoke(this,
             new OnActiveBuildingTypeChangedEventArgs { buildingType = buildingType }
         );
