@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpritePositionSortingOrder : MonoBehaviour {
     [SerializeField] private float precision = 5f;
     [SerializeField] private bool fixedPos = false;
+    [SerializeField] private float yPositionOffset;
 
     private SpriteRenderer _sr;
 
@@ -14,7 +15,7 @@ public class SpritePositionSortingOrder : MonoBehaviour {
 
     // Select sprite order in layer based on Y position
     private void LateUpdate() {
-        _sr.sortingOrder = (int)(-transform.position.y * precision);
+        _sr.sortingOrder = (int)(-(transform.position.y + yPositionOffset) * precision);
         if (fixedPos) {
             // This sprite/object will never move so disable this script [SCARY]
             Destroy(this);
