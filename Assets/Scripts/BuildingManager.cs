@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class BuildingManager : Singleton<BuildingManager> {
 
+    [SerializeField] private float maxSeparation = 25f;
+
     public event EventHandler<OnActiveBuildingTypeChangedEventArgs> OnActiveBuildingTypeChanged;
 
     public class OnActiveBuildingTypeChangedEventArgs : EventArgs {
@@ -26,16 +28,45 @@ public class BuildingManager : Singleton<BuildingManager> {
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && _activeBuildingType) {
-            Instantiate(_activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+        if (_activeBuildingType && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
+            if (CanSpawn(_activeBuildingType, Utils.GetMouseWorldPosition())) {
+                Instantiate(_activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+            }
         }
     }
 
     public void SelectBuildingType(BuildingTypeScriptableObject buildingType) {
         _activeBuildingType = buildingType;
-        // Debug.Log("BM Select building " + buildingType.nameString + ", handler: " + OnActiveBuildingTypeChanged);
         OnActiveBuildingTypeChanged?.Invoke(this,
             new OnActiveBuildingTypeChangedEventArgs { buildingType = buildingType }
         );
+    }
+
+    private bool CanSpawn(BuildingTypeScriptableObject buildingType, Vector3 pos) {
+        BoxCollider2D box = buildingType.prefab.GetComponent<BoxCollider2D>();
+        Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)pos + box.offset, box.size, 0);
+        if (colliders.Length != 0) {
+            return false;
+        }
+        // Look to see if there are any other factories of this type too close
+        colliders = Physics2D.OverlapCircleAll(pos, buildingType.minSeparation);
+        foreach (Collider2D collider in colliders) {
+            BuildingTypeRef buildingTypeRef = collider.GetComponent<BuildingTypeRef>();
+            if (buildingTypeRef != null) {
+                if (buildingTypeRef.buildingType == buildingType) {
+                    // Sorry, there's another factory too close
+                    return false;
+                }
+            }
+        }
+        // Make sure there is at least one other building nearby (no isolationists!)
+        colliders = Physics2D.OverlapCircleAll(pos, maxSeparation);
+        foreach (Collider2D collider in colliders) {
+            BuildingTypeRef buildingTypeRef = collider.GetComponent<BuildingTypeRef>();
+            if (buildingTypeRef != null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

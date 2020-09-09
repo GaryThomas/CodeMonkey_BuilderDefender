@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8ead931dd91bff8489e75de9c414f17f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7030b8e3eb49e8440ae8eb3ec8b45d05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: -7101735678290870358}
   - component: {fileID: 5081504412554448400}
   m_Layer: 0
-  m_Name: GoldHarvester
+  m_Name: HQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0afadb92a26afcc3bcf629bd49e8a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: {fileID: 11400000, guid: ef08cce2cf8c9e6ff9373a1521dad00e, type: 2}
+  buildingType: {fileID: 11400000, guid: 542007362a3278f22b3a29de71bc7696, type: 2}
 --- !u!61 &5081504412554448400
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class BuildingSelectUI : MonoBehaviour {
     [SerializeField] private float offset = 180f;
     [SerializeField] private float startingPos = 70f;
     [SerializeField] private Sprite arrowSprite;
+    [SerializeField] List<BuildingTypeScriptableObject> ignoredBuildings;
 
     private BuildingTypeListScriptableObject _buildingTypes;
     private Dictionary<BuildingTypeScriptableObject, Transform> _buildingButtons;
@@ -21,6 +22,7 @@ public class BuildingSelectUI : MonoBehaviour {
         // Set up special "nothing selected" button
         _arrowButton = GenButton(pos, null);
         foreach (BuildingTypeScriptableObject buildingType in _buildingTypes.types) {
+            if (ignoredBuildings.Contains(buildingType)) { continue; }
             pos += offset;
             GenButton(pos, buildingType);
         }

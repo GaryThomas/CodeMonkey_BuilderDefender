@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 7293270598341208102}
   - component: {fileID: 4149892284428545018}
   - component: {fileID: -7101735678290870358}
+  - component: {fileID: 4399958350864609745}
   m_Layer: 0
   m_Name: StoneHarvester
   m_TagString: Untagged
@@ -155,3 +156,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: {fileID: 11400000, guid: 5604947b4a8c9b85cafac17dafb6589c, type: 2}
+--- !u!61 &4399958350864609745
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6741359364794691098}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08740759, y: -0.13508415}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.8153553, y: 3.781145}
+  m_EdgeRadius: 0
