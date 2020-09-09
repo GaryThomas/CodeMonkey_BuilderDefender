@@ -19,7 +19,7 @@ public class BuildingSelectUI : MonoBehaviour {
         buildingSelect.gameObject.SetActive(false);
         _buildingTypes = Resources.Load<BuildingTypeListScriptableObject>(typeof(BuildingTypeListScriptableObject).Name);
         // Set up special "nothing selected" button
-        _arrowButton = GenButton(pos, null, true);
+        _arrowButton = GenButton(pos, null);
         foreach (BuildingTypeScriptableObject buildingType in _buildingTypes.types) {
             pos += offset;
             GenButton(pos, buildingType);
@@ -27,25 +27,16 @@ public class BuildingSelectUI : MonoBehaviour {
         UpdateSelectedBuildingType(null);
     }
 
-    private Transform GenButton(float pos, BuildingTypeScriptableObject buildingType, bool isArrow = false) {
+    private Transform GenButton(float pos, BuildingTypeScriptableObject buildingType) {
         Transform xform = Instantiate(buildingSelect, transform);
         xform.gameObject.SetActive(true);
         xform.Find("image").GetComponent<Image>().sprite = buildingType != null ? buildingType.sprite : arrowSprite;
-        // Debug.Log("Set up button for " + (!isArrow ? buildingType.nameString : "Arrow"));
-        if (!isArrow) {
-            xform.GetComponent<Button>().onClick.AddListener(() => {
-                // Debug.Log("Click = " + buildingType.ToString());
-                // Debug.Log("Clicked on " + buildingType != null ? buildingType.nameString : "Arrow");
-                BuildingManager.Instance.SelectBuildingType(buildingType);
-                UpdateSelectedBuildingType(buildingType);
-            });
+        xform.GetComponent<Button>().onClick.AddListener(() => {
+            BuildingManager.Instance.SelectBuildingType(buildingType);
+            UpdateSelectedBuildingType(buildingType);
+        });
+        if (buildingType != null) {
             _buildingButtons[buildingType] = xform;
-        } else {
-            xform.GetComponent<Button>().onClick.AddListener(() => {
-                // Debug.Log("Clicked on Arrow");
-                BuildingManager.Instance.SelectBuildingType(null);
-                UpdateSelectedBuildingType(null);
-            });
         }
         RectTransform rect = xform.GetComponent<RectTransform>();
         rect.anchoredPosition = new Vector3(pos, 0, 0);
