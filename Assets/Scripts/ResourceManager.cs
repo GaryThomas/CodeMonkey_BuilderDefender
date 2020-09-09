@@ -19,7 +19,6 @@ public class ResourceManager : Singleton<ResourceManager> {
         _resourceAmounts = new Dictionary<ResourceTypeScriptableObject, int>();
         foreach (ResourceTypeScriptableObject resource in _resourceTypes.types) {
             _resourceAmounts[resource] = 0;
-            Debug.Log(resource.nameString);
         }
     }
 
