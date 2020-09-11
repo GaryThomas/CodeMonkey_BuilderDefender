@@ -30,4 +30,19 @@ public class ResourceManager : Singleton<ResourceManager> {
     public int GetResourceAmount(ResourceTypeScriptableObject resource) {
         return _resourceAmounts[resource];
     }
+
+    public bool CanAfford(ResourceAmount[] costs) {
+        foreach (ResourceAmount cost in costs) {
+            if (cost.amount > GetResourceAmount(cost.resource)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void ApplyCosts(ResourceAmount[] costs) {
+        foreach (ResourceAmount cost in costs) {
+            AddResources(cost.resource, -cost.amount);
+        }
+    }
 }

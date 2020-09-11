@@ -30,7 +30,10 @@ public class BuildingManager : Singleton<BuildingManager> {
     private void Update() {
         if (_activeBuildingType && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
             if (CanSpawn(_activeBuildingType, Utils.GetMouseWorldPosition())) {
-                Instantiate(_activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+                if (ResourceManager.Instance.CanAfford(_activeBuildingType.productionCosts)) {
+                    ResourceManager.Instance.ApplyCosts(_activeBuildingType.productionCosts);
+                    Instantiate(_activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+                }
             }
         }
     }

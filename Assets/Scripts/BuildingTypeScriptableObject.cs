@@ -9,4 +9,5 @@ public class BuildingTypeScriptableObject : ScriptableObject {
     public Sprite sprite;
     public ResourceGeneratorData resourceGeneratorData;
     public float minSeparation;
+    public ResourceAmount[] productionCosts;
 }
