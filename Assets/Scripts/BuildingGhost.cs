@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingGhost : MonoBehaviour {
-    [SerializeField] GameObject ghostSprite;
+    [SerializeField] private GameObject ghostSprite;
+    [SerializeField] private ResourceNearbyOverlay _resourceNearbyOverlay;
 
     private void Awake() {
         Hide();
@@ -18,8 +19,10 @@ public class BuildingGhost : MonoBehaviour {
         // Debug.Log("Change building type to " + e.buildingType.nameString);
         if (e.buildingType == null) {
             Hide();
+            _resourceNearbyOverlay.Hide();
         } else {
             Show(e.buildingType.sprite);
+            _resourceNearbyOverlay.Show(e.buildingType.resourceGeneratorData);
         }
     }
 

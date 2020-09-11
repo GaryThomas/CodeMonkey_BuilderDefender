@@ -14,15 +14,7 @@ public class ResourceGenerator : MonoBehaviour {
     }
 
     private void Start() {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _resourceGeneratorData.resourceDetectionRadius);
-        int nearbyResources = 0;
-        foreach (Collider2D collider in colliders) {
-            ResourceNode node = collider.GetComponent<ResourceNode>();
-            if (node != null && node.resourceType == _resourceGeneratorData.resourceType) {
-                nearbyResources++;
-            }
-        }
-        nearbyResources = Mathf.Clamp(nearbyResources, 0, _resourceGeneratorData.maxResourceAmount);
+        int nearbyResources = GetNearbyResources(_resourceGeneratorData, transform.position);
         if (nearbyResources == 0) {
             Debug.Log("No nearby resources");
             enabled = false;  // Disable resource generation
@@ -40,5 +32,30 @@ public class ResourceGenerator : MonoBehaviour {
             _timer += _timerMax;
             ResourceManager.Instance.AddResources(_resourceGeneratorData.resourceType, 1);
         }
+    }
+
+    public static int GetNearbyResources(ResourceGeneratorData resourceGeneratorData, Vector3 position) {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, resourceGeneratorData.resourceDetectionRadius);
+        int nearbyResources = 0;
+        foreach (Collider2D collider in colliders) {
+            ResourceNode node = collider.GetComponent<ResourceNode>();
+            if (node != null && node.resourceType == resourceGeneratorData.resourceType) {
+                nearbyResources++;
+            }
+        }
+        nearbyResources = Mathf.Clamp(nearbyResources, 0, resourceGeneratorData.maxResourceAmount);
+        return nearbyResources;
+    }
+
+    public ResourceGeneratorData GetResourceGeneratorData() {
+        return _resourceGeneratorData;
+    }
+
+    public float GetTimerNormalized() {
+        return _timer / _timerMax;
+    }
+
+    public float GetRate() {
+        return 1 / _timerMax;
     }
 }
