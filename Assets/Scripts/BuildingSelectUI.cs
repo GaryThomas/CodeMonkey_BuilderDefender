@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +41,17 @@ public class BuildingSelectUI : MonoBehaviour {
         if (buildingType != null) {
             _buildingButtons[buildingType] = xform;
         }
+        MouseEnterExitEvents mouseEnterExitEvents = xform.GetComponent<MouseEnterExitEvents>();
+        mouseEnterExitEvents.OnMouseEnter += (object sender, EventArgs eventArgs) => {
+            if (buildingType != null) {
+                TooltipUI.Instance.ShowMsg(buildingType.nameString + "\n" + buildingType.GetProductionCostsString());
+            } else {
+                TooltipUI.Instance.ShowMsg("Arrow");
+            }
+        };
+        mouseEnterExitEvents.OnMouseExit += (object sender, EventArgs eventArgs) => {
+            TooltipUI.Instance.Hide();
+        };
         RectTransform rect = xform.GetComponent<RectTransform>();
         rect.anchoredPosition = new Vector3(pos, 0, 0);
         return xform;
