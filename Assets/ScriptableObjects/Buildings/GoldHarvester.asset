@@ -21,3 +21,8 @@ MonoBehaviour:
     resourceDetectionRadius: 7
     maxResourceAmount: 3
   minSeparation: 8
+  productionCosts:
+  - resource: {fileID: 11400000, guid: e8521cc4410757ff1bd57d11edad2620, type: 2}
+    amount: 50
+  - resource: {fileID: 11400000, guid: 24762ae03624d5c9e8cdc38ba460753d, type: 2}
+    amount: 30
