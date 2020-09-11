@@ -21,7 +21,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
         Debug.Log("Singleton: " + typeof(T).Name);
         if (m_instance == null) {
             m_instance = this as T;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         } else if (m_instance != this) {
             Debug.Log("Singleton: destroy extra object");
             Destroy(gameObject);
