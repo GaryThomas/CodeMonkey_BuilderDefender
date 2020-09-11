@@ -28,12 +28,17 @@ public class BuildingManager : Singleton<BuildingManager> {
     }
 
     private void Update() {
+        string errMsg;
         if (_activeBuildingType && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
-            if (CanSpawn(_activeBuildingType, Utils.GetMouseWorldPosition())) {
+            if (CanSpawn(_activeBuildingType, Utils.GetMouseWorldPosition(), out errMsg)) {
                 if (ResourceManager.Instance.CanAfford(_activeBuildingType.productionCosts)) {
                     ResourceManager.Instance.ApplyCosts(_activeBuildingType.productionCosts);
                     Instantiate(_activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+                } else {
+                    TooltipUI.Instance.ShowMsg("Can't afford to build", 2f);
                 }
+            } else {
+                TooltipUI.Instance.ShowMsg(errMsg, 2f);
             }
         }
     }
@@ -45,10 +50,11 @@ public class BuildingManager : Singleton<BuildingManager> {
         );
     }
 
-    private bool CanSpawn(BuildingTypeScriptableObject buildingType, Vector3 pos) {
+    private bool CanSpawn(BuildingTypeScriptableObject buildingType, Vector3 pos, out string errMsg) {
         BoxCollider2D box = buildingType.prefab.GetComponent<BoxCollider2D>();
         Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)pos + box.offset, box.size, 0);
         if (colliders.Length != 0) {
+            errMsg = "No resources available here";
             return false;
         }
         // Look to see if there are any other factories of this type too close
@@ -57,7 +63,7 @@ public class BuildingManager : Singleton<BuildingManager> {
             BuildingTypeRef buildingTypeRef = collider.GetComponent<BuildingTypeRef>();
             if (buildingTypeRef != null) {
                 if (buildingTypeRef.buildingType == buildingType) {
-                    // Sorry, there's another factory too close
+                    errMsg = "Sorry, there's another factory too closeby";
                     return false;
                 }
             }
@@ -67,9 +73,11 @@ public class BuildingManager : Singleton<BuildingManager> {
         foreach (Collider2D collider in colliders) {
             BuildingTypeRef buildingTypeRef = collider.GetComponent<BuildingTypeRef>();
             if (buildingTypeRef != null) {
+                errMsg = "";
                 return true;
             }
         }
+        errMsg = "Sorry, that's way too far from another building";
         return false;
     }
 }

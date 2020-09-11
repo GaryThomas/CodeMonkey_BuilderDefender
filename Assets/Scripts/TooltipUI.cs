@@ -9,6 +9,7 @@ public class TooltipUI : Singleton<TooltipUI> {
     [SerializeField] private Vector2 _padding;
 
     private RectTransform _rect;
+    private float _timer;
 
     public override void Awake() {
         base.Awake();
@@ -17,6 +18,13 @@ public class TooltipUI : Singleton<TooltipUI> {
     }
 
     private void Update() {
+        if ((_timer > 0)) {
+            _timer -= Time.deltaTime;
+            if (_timer <= 0) {
+                Hide();
+                return;
+            }
+        }
         Vector2 anchoredPosition = Input.mousePosition / _canvas.localScale.x;
         if (anchoredPosition.x + _rect.rect.width > _canvas.rect.width) {
             anchoredPosition.x = _canvas.rect.width - _rect.rect.width;
@@ -33,7 +41,8 @@ public class TooltipUI : Singleton<TooltipUI> {
         _rect.sizeDelta = _text.GetRenderedValues(false) + _padding;
     }
 
-    public void ShowMsg(string msg) {
+    public void ShowMsg(string msg, float timeout = -1) {
+        _timer = timeout;
         gameObject.SetActive(true);
         SetText(msg);
     }
