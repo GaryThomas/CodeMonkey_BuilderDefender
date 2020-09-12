@@ -10,6 +10,7 @@ public class BuildingTypeScriptableObject : ScriptableObject {
     public ResourceGeneratorData resourceGeneratorData;
     public float minSeparation;
     public ResourceAmount[] productionCosts;
+    public int maxHealth;
 
     public string GetProductionCostsString() {
         string str = "";

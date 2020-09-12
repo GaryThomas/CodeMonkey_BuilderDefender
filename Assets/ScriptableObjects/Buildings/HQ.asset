@@ -21,3 +21,5 @@ MonoBehaviour:
     resourceDetectionRadius: 7
     maxResourceAmount: 3
   minSeparation: 0
+  productionCosts: []
+  maxHealth: 150
