@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class BuildingManager : Singleton<BuildingManager> {
 
     [SerializeField] private float maxSeparation = 25f;
+    [SerializeField] private Transform _HQ;
 
     public event EventHandler<OnActiveBuildingTypeChangedEventArgs> OnActiveBuildingTypeChanged;
 
@@ -40,6 +41,11 @@ public class BuildingManager : Singleton<BuildingManager> {
             } else {
                 TooltipUI.Instance.ShowMsg(errMsg, 2f);
             }
+        }
+        // Testing
+        if (Input.GetKeyDown(KeyCode.K)) {
+            Vector3 pos = Utils.GetMouseWorldPosition() + Utils.GetRandomDir() * 5f;
+            Enemy.CreateEnemy(pos);
         }
     }
 
@@ -79,5 +85,9 @@ public class BuildingManager : Singleton<BuildingManager> {
         }
         errMsg = "Sorry, that's way too far from another building";
         return false;
+    }
+
+    public Transform GetHQ() {
+        return _HQ;
     }
 }

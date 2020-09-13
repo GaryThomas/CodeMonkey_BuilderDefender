@@ -9,10 +9,14 @@ public class ResourceGeneratorOverlay : MonoBehaviour {
     private Transform _bar;
 
     private void Start() {
-        ResourceGeneratorData resourceGeneratorData = resourceGenerator.GetResourceGeneratorData();
-        transform.Find("icon").GetComponent<SpriteRenderer>().sprite = resourceGeneratorData.resourceType.sprite;
-        _bar = transform.Find("bar");
-        transform.Find("text").GetComponent<TextMeshPro>().SetText(resourceGenerator.GetRate().ToString("F1"));
+        if (resourceGenerator) {
+            ResourceGeneratorData resourceGeneratorData = resourceGenerator.GetResourceGeneratorData();
+            transform.Find("icon").GetComponent<SpriteRenderer>().sprite = resourceGeneratorData.resourceType.sprite;
+            _bar = transform.Find("bar");
+            transform.Find("text").GetComponent<TextMeshPro>().SetText(resourceGenerator.GetRate().ToString("F1"));
+        } else {
+            Destroy(gameObject);
+        }
     }
 
     private void Update() {

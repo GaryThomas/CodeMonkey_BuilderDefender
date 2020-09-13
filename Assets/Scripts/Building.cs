@@ -15,7 +15,7 @@ public class Building : MonoBehaviour {
     }
 
     private void OnDeath(object sender, EventArgs e) {
-        Debug.Log("Died");
+        Debug.Log(_buildingType.nameString + " Died!");
         Destroy(gameObject);
     }
 }

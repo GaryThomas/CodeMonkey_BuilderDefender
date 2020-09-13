@@ -1328,7 +1328,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 78.6, y: 145}
   m_SizeDelta: {x: 363.37024, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &600273013
@@ -3500,6 +3500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSeparation: 25
+  _HQ: {fileID: 2101715804}
 --- !u!4 &1910365525
 Transform:
   m_ObjectHideFlags: 0
@@ -3896,6 +3897,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db9cdd2a4ab4221e580127195090fdaf, type: 3}
+--- !u!4 &2101715804 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7293270598341208102, guid: 53632b0f3565777b08a4fb15ac56d16d,
+    type: 3}
+  m_PrefabInstance: {fileID: 68602202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &712637217199532997
 PrefabInstance:
   m_ObjectHideFlags: 0
