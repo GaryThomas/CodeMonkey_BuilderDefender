@@ -27,6 +27,7 @@ public class HealthSystem : MonoBehaviour {
     }
 
     public bool IsFullHealth() {
+        Debug.Log("Health: " + _health + ", Max: " + _maxHealth);
         return _health >= _maxHealth;
     }
 

@@ -37,6 +37,11 @@ public class Enemy : MonoBehaviour {
             if (_target == null) {
                 // Nothing nearby - go after HQ
                 TargetHQ();
+                if (_target == null) {
+                    // No more HQ!
+                    Destroy(gameObject);
+                    return;
+                }
             }
         }
         Vector3 dir = _target.position - transform.position;
@@ -53,6 +58,7 @@ public class Enemy : MonoBehaviour {
         if (building != null) {
             HealthSystem health = building.GetComponent<HealthSystem>();
             health.TakeDamage(damage);
+            Debug.Log("Destroy Enemy");
             Destroy(gameObject);
         }
     }
