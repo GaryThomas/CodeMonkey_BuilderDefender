@@ -18,4 +18,8 @@ public static class Utils {
     public static Vector3 GetRandomDir() {
         return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     }
+
+    public static float VectorAngle(Vector3 dir) {
+        return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+    }
 }
