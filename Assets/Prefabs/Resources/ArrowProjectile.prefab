@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8584536085418880159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 8584536086119277981}
   m_Father: {fileID: 0}
@@ -94,6 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 50
+  maxLifetime: 2
+  damage: 5
 --- !u!1 &8584536086119277980
 GameObject:
   m_ObjectHideFlags: 0

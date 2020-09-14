@@ -8,22 +8,33 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private int damage = 10;
     [SerializeField] private float lookForTargetTime = 0.2f;
     [SerializeField] private float targetSearchRadius = 30f;
+    [SerializeField] private int maxHealth = 30;
 
     private Rigidbody2D _rb2d;
     private Transform _target;
     private float _lookForTargetTimer;
+    private HealthSystem _health;
 
     public static Enemy CreateEnemy(Vector3 position) {
         // Can't think of a way to cache this (yet)
         Transform prefab = Resources.Load<Transform>("Enemy");
         Transform xform = Instantiate(prefab, position, Quaternion.identity);
-        return xform.GetComponent<Enemy>();
+        Enemy enemy = xform.GetComponent<Enemy>();
+        xform.GetComponent<HealthSystem>().SetMaxHealth(enemy.maxHealth);
+        return enemy;
     }
 
     private void Start() {
         TargetHQ();
         _rb2d = GetComponent<Rigidbody2D>();
         _lookForTargetTimer = Random.Range(0, lookForTargetTime);
+        _health = GetComponent<HealthSystem>();
+        _health.OnDeath += EnemyDied;
+    }
+
+    private void EnemyDied(object sender, System.EventArgs e) {
+        Debug.Log("Enemy died");
+        Destroy(gameObject);
     }
 
     private void TargetHQ() {

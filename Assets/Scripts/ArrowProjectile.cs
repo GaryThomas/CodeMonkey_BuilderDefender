@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class ArrowProjectile : MonoBehaviour {
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float maxLifetime = 2f;
+    [SerializeField] private int damage = 5;
 
     private Enemy _target;
+    private Vector3 _lastDir;
 
     public static ArrowProjectile CreateArrowProjectile(Vector3 position, Enemy enemy) {
         // Can't think of a way to cache this (yet)
@@ -13,18 +16,20 @@ public class ArrowProjectile : MonoBehaviour {
         Transform xform = Instantiate(prefab, position, Quaternion.identity);
         ArrowProjectile arrowProjectile = xform.GetComponent<ArrowProjectile>();
         arrowProjectile.SetTarget(enemy);
+        Destroy(arrowProjectile.gameObject, arrowProjectile.maxLifetime);
         return arrowProjectile;
     }
 
     private void Update() {
+        Vector3 dir;
         if (_target != null) {
-            Vector3 dir = (_target.transform.position - transform.position).normalized;
-            transform.position += dir * moveSpeed * Time.deltaTime;
-            transform.eulerAngles = new Vector3(0, 0, Utils.VectorAngle(dir));
+            dir = (_target.transform.position - transform.position).normalized;
+            _lastDir = dir;
         } else {
-            Debug.Log("Arrow target vanished");
-            Destroy(gameObject);
+            dir = _lastDir;
         }
+        transform.position += dir * moveSpeed * Time.deltaTime;
+        transform.eulerAngles = new Vector3(0, 0, Utils.VectorAngle(dir));
     }
 
     public void SetTarget(Enemy target) {
@@ -34,7 +39,8 @@ public class ArrowProjectile : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         Enemy enemy = other.GetComponent<Enemy>();
         if (enemy != null) {
-            Destroy(enemy.gameObject);
+            HealthSystem _enemyHealth = enemy.GetComponent<HealthSystem>();
+            _enemyHealth.TakeDamage(damage);
             Destroy(gameObject);
         }
     }
