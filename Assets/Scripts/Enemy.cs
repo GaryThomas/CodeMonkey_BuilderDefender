@@ -31,6 +31,19 @@ public class Enemy : MonoBehaviour {
     }
 
     private void Update() {
+        HandleMovement();
+        HandleTargeting();
+    }
+
+    private void HandleTargeting() {
+        _lookForTargetTimer -= Time.deltaTime;
+        if (_lookForTargetTimer <= 0) {
+            _lookForTargetTimer += lookForTargetTime;
+            LookForClosestTarget();
+        }
+    }
+
+    private void HandleMovement() {
         if (_target == null) {
             // Old target was destroyed, find a new one
             LookForClosestTarget();
@@ -46,11 +59,6 @@ public class Enemy : MonoBehaviour {
         }
         Vector3 dir = _target.position - transform.position;
         _rb2d.velocity = dir * moveSpeed;
-        _lookForTargetTimer -= Time.deltaTime;
-        if (_lookForTargetTimer <= 0) {
-            _lookForTargetTimer += lookForTargetTime;
-            LookForClosestTarget();
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D other) {

@@ -8,6 +8,7 @@ public class ResourceManager : Singleton<ResourceManager> {
 
     private Dictionary<ResourceTypeScriptableObject, int> _resourceAmounts;
     private ResourceTypeListScriptableObject _resourceTypes;
+    [SerializeField] private List<ResourceAmount> _startingResources;
 
     public override void Awake() {
         base.Awake();
@@ -19,6 +20,9 @@ public class ResourceManager : Singleton<ResourceManager> {
         _resourceAmounts = new Dictionary<ResourceTypeScriptableObject, int>();
         foreach (ResourceTypeScriptableObject resource in _resourceTypes.types) {
             _resourceAmounts[resource] = 0;
+        }
+        foreach (ResourceAmount resource in _startingResources) {
+            _resourceAmounts[resource.resource] = resource.amount;
         }
     }
 

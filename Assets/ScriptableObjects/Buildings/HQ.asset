@@ -15,6 +15,7 @@ MonoBehaviour:
   nameString: HQ
   prefab: {fileID: 7293270598341208102, guid: 53632b0f3565777b08a4fb15ac56d16d, type: 3}
   sprite: {fileID: 21300000, guid: 7030b8e3eb49e8440ae8eb3ec8b45d05, type: 3}
+  hasResourceGeneratorData: 1
   resourceGeneratorData:
     timerMax: 2
     resourceType: {fileID: 11400000, guid: e8521cc4410757ff1bd57d11edad2620, type: 2}
