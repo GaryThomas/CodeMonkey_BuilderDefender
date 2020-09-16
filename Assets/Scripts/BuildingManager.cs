@@ -42,11 +42,6 @@ public class BuildingManager : Singleton<BuildingManager> {
                 TooltipUI.Instance.ShowMsg(errMsg, 2f);
             }
         }
-        // Testing
-        if (Input.GetKeyDown(KeyCode.K)) {
-            Vector3 pos = Utils.GetMouseWorldPosition() + Utils.GetRandomDir() * 5f;
-            Enemy.CreateEnemy(pos);
-        }
     }
 
     public void SelectBuildingType(BuildingTypeScriptableObject buildingType) {
