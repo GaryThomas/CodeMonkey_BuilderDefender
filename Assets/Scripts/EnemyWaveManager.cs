@@ -76,4 +76,8 @@ public class EnemyWaveManager : MonoBehaviour {
     public float GetTimeToNextWave() {
         return _waveSpawnTimer;
     }
+
+    public Vector3 GetNextSpawnPoint() {
+        return _spawnPoint;
+    }
 }
