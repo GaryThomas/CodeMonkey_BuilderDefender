@@ -34,7 +34,8 @@ public class BuildingManager : Singleton<BuildingManager> {
             if (CanSpawn(_activeBuildingType, Utils.GetMouseWorldPosition(), out errMsg)) {
                 if (ResourceManager.Instance.CanAfford(_activeBuildingType.productionCosts)) {
                     ResourceManager.Instance.ApplyCosts(_activeBuildingType.productionCosts);
-                    Instantiate(_activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+                    // Instantiate(_activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+                    BuildingUnderConstruction.Create(Utils.GetMouseWorldPosition(), _activeBuildingType);
                 } else {
                     TooltipUI.Instance.ShowMsg("Can't afford to build", 2f);
                 }

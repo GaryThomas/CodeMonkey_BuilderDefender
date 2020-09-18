@@ -10,6 +10,7 @@ public class BuildingTypeScriptableObject : ScriptableObject {
     public bool hasResourceGeneratorData;
     public ResourceGeneratorData resourceGeneratorData;
     public float minSeparation;
+    public float constructionTime;
     public ResourceAmount[] productionCosts;
     public int maxHealth;
 
