@@ -9,6 +9,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
     private float _constructionTimer = 5f;
     private BuildingTypeScriptableObject _buildingType;
     private BoxCollider2D _box;
+    private BuildingTypeRef _ref;
 
     public static BuildingUnderConstruction Create(Vector3 position, BuildingTypeScriptableObject buildingType) {
         // Can't think of a way to cache this (yet)
@@ -21,6 +22,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
 
     private void Awake() {
         _box = GetComponent<BoxCollider2D>();
+        _ref = GetComponent<BuildingTypeRef>();
     }
 
     private void Setup(BuildingTypeScriptableObject buildingType) {
@@ -31,6 +33,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
         BoxCollider2D buildingBox = buildingType.prefab.GetComponent<BoxCollider2D>();
         _box.size = buildingBox.size;
         _box.offset = buildingBox.offset;
+        _ref.buildingType = buildingType;
     }
 
     private void Update() {
