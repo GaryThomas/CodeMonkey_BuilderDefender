@@ -10,6 +10,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
     private BuildingTypeScriptableObject _buildingType;
     private BoxCollider2D _box;
     private BuildingTypeRef _ref;
+    private Material _constructionMaterial;
 
     public static BuildingUnderConstruction Create(Vector3 position, BuildingTypeScriptableObject buildingType) {
         // Can't think of a way to cache this (yet)
@@ -23,6 +24,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
     private void Awake() {
         _box = GetComponent<BoxCollider2D>();
         _ref = GetComponent<BuildingTypeRef>();
+        _constructionMaterial = _image.material;
     }
 
     private void Setup(BuildingTypeScriptableObject buildingType) {
@@ -38,6 +40,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
 
     private void Update() {
         _constructionTimer -= Time.deltaTime;
+        _constructionMaterial.SetFloat("_Progress", 1 - GetConstructionTimerNormalized());
         if (_constructionTimer <= 0) {
             Instantiate(_buildingType.prefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
