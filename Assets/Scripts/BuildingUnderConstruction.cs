@@ -10,14 +10,13 @@ public class BuildingUnderConstruction : MonoBehaviour {
     private BuildingTypeScriptableObject _buildingType;
     private BoxCollider2D _box;
     private BuildingTypeRef _ref;
-    private Vector3 _position;
 
     public static BuildingUnderConstruction Create(Vector3 position, BuildingTypeScriptableObject buildingType) {
         // Can't think of a way to cache this (yet)
         Transform prefab = Resources.Load<Transform>("BuildingUnderConstruction");
         Transform xform = Instantiate(prefab, position, Quaternion.identity);
         BuildingUnderConstruction buildingUnderConstruction = xform.GetComponent<BuildingUnderConstruction>();
-        buildingUnderConstruction.Setup(position, buildingType);
+        buildingUnderConstruction.Setup(buildingType);
         return buildingUnderConstruction;
     }
 
@@ -26,11 +25,10 @@ public class BuildingUnderConstruction : MonoBehaviour {
         _ref = GetComponent<BuildingTypeRef>();
     }
 
-    private void Setup(Vector3 position, BuildingTypeScriptableObject buildingType) {
+    private void Setup(BuildingTypeScriptableObject buildingType) {
         _constructionTime = buildingType.constructionTime;
         _constructionTimer = _constructionTime;
         _buildingType = buildingType;
-        _position = position;
         _image.sprite = buildingType.sprite;
         BoxCollider2D buildingBox = buildingType.prefab.GetComponent<BoxCollider2D>();
         _box.size = buildingBox.size;
@@ -41,8 +39,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
     private void Update() {
         _constructionTimer -= Time.deltaTime;
         if (_constructionTimer <= 0) {
-            Instantiate(_buildingType.prefab, _position, Quaternion.identity);
-            Debug.Log("Poof!" + transform.position + ", " + _position);
+            Instantiate(_buildingType.prefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
