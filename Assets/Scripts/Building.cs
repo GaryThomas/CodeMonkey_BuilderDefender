@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Building : MonoBehaviour {
     [SerializeField] Transform buildingDemolishButton;
+    [SerializeField] Transform buildingRepairButton;
 
     private HealthSystem _health;
     private BuildingTypeScriptableObject _buildingType;
@@ -14,7 +15,20 @@ public class Building : MonoBehaviour {
         _health = GetComponent<HealthSystem>();
         _health.OnDeath += OnDeath;
         _health.SetMaxHealth(_buildingType.maxHealth);
+        _health.OnDamaged += OnDamage;
+        _health.OnHealed += OnHealed;
         HideDemolishButton();
+        HideRepairButton();
+    }
+
+    private void OnHealed(object sender, EventArgs e) {
+        if (_health.IsFullHealth()) {
+            HideRepairButton();
+        }
+    }
+
+    private void OnDamage(object sender, EventArgs e) {
+        ShowRepairButton();
     }
 
     private void OnDeath(object sender, EventArgs e) {
@@ -39,6 +53,18 @@ public class Building : MonoBehaviour {
     private void HideDemolishButton() {
         if (buildingDemolishButton != null) {
             buildingDemolishButton.gameObject.SetActive(false);
+        }
+    }
+
+    private void ShowRepairButton() {
+        if (buildingRepairButton != null) {
+            buildingRepairButton.gameObject.SetActive(true);
+        }
+    }
+
+    private void HideRepairButton() {
+        if (buildingRepairButton != null) {
+            buildingRepairButton.gameObject.SetActive(false);
         }
     }
 }
