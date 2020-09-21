@@ -17,6 +17,7 @@ public class BuildingManager : Singleton<BuildingManager> {
 
     private BuildingTypeScriptableObject _activeBuildingType;
     private BuildingTypeListScriptableObject _buildingTypes;
+    private HealthSystem _hqHealth;
 
     public override void Awake() {
         base.Awake();
@@ -26,6 +27,11 @@ public class BuildingManager : Singleton<BuildingManager> {
             return;
         }
         _activeBuildingType = null;
+        _HQ.GetComponent<HealthSystem>().OnDeath += HQDied;
+    }
+
+    private void HQDied(object sender, EventArgs e) {
+        GameOverUI.Instance.Show();
     }
 
     private void Update() {
@@ -56,7 +62,7 @@ public class BuildingManager : Singleton<BuildingManager> {
         BoxCollider2D box = buildingType.prefab.GetComponent<BoxCollider2D>();
         Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)pos + box.offset, box.size, 0);
         if (colliders.Length != 0) {
-            errMsg = "No resources available here";
+            errMsg = "Area not clear";
             return false;
         }
         // Look to see if there are any other factories of this type too close

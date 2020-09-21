@@ -38,7 +38,9 @@ public class Enemy : MonoBehaviour {
     }
 
     private void TargetHQ() {
-        _target = BuildingManager.Instance.GetHQ();
+        if (BuildingManager.Instance != null) {
+            _target = BuildingManager.Instance.GetHQ();
+        }
     }
 
     private void Update() {
@@ -77,7 +79,7 @@ public class Enemy : MonoBehaviour {
         if (building != null) {
             HealthSystem health = building.GetComponent<HealthSystem>();
             health.TakeDamage(damage);
-            Debug.Log("Destroy Enemy");
+            // Debug.Log("Destroy Enemy");
             Destroy(gameObject);
         }
     }
@@ -85,6 +87,9 @@ public class Enemy : MonoBehaviour {
     private void LookForClosestTarget() {
         if (_target == null) {
             TargetHQ();
+            if (_target == null) {
+                return;
+            }
         }
         Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, targetSearchRadius);
         foreach (Collider2D target in targets) {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyWaveManager : MonoBehaviour {
+public class EnemyWaveManager : Singleton<EnemyWaveManager> {
 
     public event EventHandler OnWaveNumberChanged;
 
