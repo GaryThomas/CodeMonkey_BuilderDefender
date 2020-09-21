@@ -6,6 +6,7 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour {
     public event EventHandler OnDamaged;
     public event EventHandler OnDeath;
+    public event EventHandler OnHealed;
 
     private int _maxHealth = 1;
     private int _health = 1;
@@ -26,6 +27,16 @@ public class HealthSystem : MonoBehaviour {
         }
     }
 
+    public void Heal(int amount) {
+        _health = Mathf.Clamp(_health + amount, 0, _maxHealth);
+        OnHealed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void HealFully() {
+        _health = _maxHealth;
+        OnHealed?.Invoke(this, EventArgs.Empty);
+    }
+
     public bool IsFullHealth() {
         Debug.Log("Health: " + _health + ", Max: " + _maxHealth);
         return _health >= _maxHealth;
@@ -37,6 +48,10 @@ public class HealthSystem : MonoBehaviour {
 
     public int GetHealth() {
         return _health;
+    }
+
+    public int GetMaxHealth() {
+        return _maxHealth;
     }
 
     public float GetHealthNormalized() {
