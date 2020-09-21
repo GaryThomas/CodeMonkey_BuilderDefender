@@ -31,6 +31,7 @@ public class BuildingManager : Singleton<BuildingManager> {
     }
 
     private void HQDied(object sender, EventArgs e) {
+        SoundManager.Instance.PlayClip(SoundManager.Instance.clips.GameOver);
         GameOverUI.Instance.Show();
     }
 
@@ -40,7 +41,7 @@ public class BuildingManager : Singleton<BuildingManager> {
             if (CanSpawn(_activeBuildingType, Utils.GetMouseWorldPosition(), out errMsg)) {
                 if (ResourceManager.Instance.CanAfford(_activeBuildingType.productionCosts)) {
                     ResourceManager.Instance.ApplyCosts(_activeBuildingType.productionCosts);
-                    // Instantiate(_activeBuildingType.prefab, Utils.GetMouseWorldPosition(), Quaternion.identity);
+                    SoundManager.Instance.PlayClip(SoundManager.Instance.clips.BuildingPlaced);
                     BuildingUnderConstruction.Create(Utils.GetMouseWorldPosition(), _activeBuildingType);
                 } else {
                     TooltipUI.Instance.ShowMsg("Can't afford to build", 2f);

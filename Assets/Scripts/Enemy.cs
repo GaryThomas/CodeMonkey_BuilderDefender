@@ -30,10 +30,16 @@ public class Enemy : MonoBehaviour {
         _lookForTargetTimer = Random.Range(0, lookForTargetTime);
         _health = GetComponent<HealthSystem>();
         _health.OnDeath += EnemyDied;
+        _health.OnDamaged += EnemyDamaged;
+    }
+
+    private void EnemyDamaged(object sender, System.EventArgs e) {
+        SoundManager.Instance.PlayClip(SoundManager.Instance.clips.EnemyHit);
     }
 
     private void EnemyDied(object sender, System.EventArgs e) {
         Debug.Log("Enemy died");
+        SoundManager.Instance.PlayClip(SoundManager.Instance.clips.EnemyDie);
         Destroy(gameObject);
     }
 

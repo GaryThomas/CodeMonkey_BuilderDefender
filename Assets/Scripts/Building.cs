@@ -28,11 +28,13 @@ public class Building : MonoBehaviour {
     }
 
     private void OnDamage(object sender, EventArgs e) {
+        SoundManager.Instance.PlayClip(SoundManager.Instance.clips.BuildingDamaged);
         ShowRepairButton();
     }
 
     private void OnDeath(object sender, EventArgs e) {
         Debug.Log(_buildingType.nameString + " Died!");
+        SoundManager.Instance.PlayClip(SoundManager.Instance.clips.BuildingDestroyed);
         Destroy(gameObject);
     }
 
