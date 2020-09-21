@@ -12,6 +12,11 @@ public class HealthBar : MonoBehaviour {
     private void Start() {
         _bar = transform.Find("bar");
         _health.OnDamaged += OnDamaged;
+        _health.OnHealed += OnHealed;
+        UpdateBar();
+    }
+
+    private void OnHealed(object sender, EventArgs e) {
         UpdateBar();
     }
 
