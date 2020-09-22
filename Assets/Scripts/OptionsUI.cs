@@ -30,6 +30,10 @@ public class OptionsUI : MonoBehaviour {
             MusicManager.Instance.DecreaseVolume();
             ShowMusicVolume();
         });
+        mainMenuButton.onClick.AddListener(() => {
+            PauseGame(false);
+            GameSceneManager.LoadScene(GameSceneManager.Scene.Game);
+        });
     }
 
     private void Start() {
@@ -49,9 +53,13 @@ public class OptionsUI : MonoBehaviour {
     public void ToggleOptionsUI() {
         gameObject.SetActive(!gameObject.activeSelf);
         if (gameObject.activeSelf) {
-            Time.timeScale = 0f;
+            PauseGame(true);
         } else {
-            Time.timeScale = 1f;
+            PauseGame(false);
         }
+    }
+
+    private void PauseGame(bool state) {
+        Time.timeScale = state ? 0f : 1f;
     }
 }
