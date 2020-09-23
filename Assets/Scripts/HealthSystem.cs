@@ -7,6 +7,7 @@ public class HealthSystem : MonoBehaviour {
     public event EventHandler OnDamaged;
     public event EventHandler OnDeath;
     public event EventHandler OnHealed;
+    public event EventHandler OnHealthMaxChanged;
 
     private int _maxHealth = 1;
     private int _health = 1;
@@ -16,6 +17,7 @@ public class HealthSystem : MonoBehaviour {
         if (setHealth) {
             _health = _maxHealth;
         }
+        OnHealthMaxChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void TakeDamage(int amount) {

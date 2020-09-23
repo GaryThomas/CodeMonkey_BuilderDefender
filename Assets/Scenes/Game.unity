@@ -293,6 +293,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1197353296633172244, guid: 53632b0f3565777b08a4fb15ac56d16d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1197353296633172244, guid: 53632b0f3565777b08a4fb15ac56d16d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.066037714
+      objectReference: {fileID: 0}
+    - target: {fileID: 1197353296633172244, guid: 53632b0f3565777b08a4fb15ac56d16d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.06541472
+      objectReference: {fileID: 0}
+    - target: {fileID: 1197353296633172244, guid: 53632b0f3565777b08a4fb15ac56d16d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.06541472
+      objectReference: {fileID: 0}
     - target: {fileID: 3278762465671797471, guid: 53632b0f3565777b08a4fb15ac56d16d,
         type: 3}
       propertyPath: m_RootOrder
@@ -362,6 +382,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096125772442767359, guid: 53632b0f3565777b08a4fb15ac56d16d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096125772442767359, guid: 53632b0f3565777b08a4fb15ac56d16d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.066037714
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096125772442767359, guid: 53632b0f3565777b08a4fb15ac56d16d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.06541472
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096125772442767359, guid: 53632b0f3565777b08a4fb15ac56d16d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.06541472
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53632b0f3565777b08a4fb15ac56d16d, type: 3}
