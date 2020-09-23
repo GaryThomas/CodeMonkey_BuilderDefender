@@ -12,6 +12,7 @@ public class OptionsUI : MonoBehaviour {
     [SerializeField] private Button musicDecreaseButton;
     [SerializeField] private TextMeshProUGUI musicVolumeText;
     [SerializeField] private Button mainMenuButton;
+    [SerializeField] private Toggle edgeScrollingToggle;
 
     private void Awake() {
         soundIncreaseButton.onClick.AddListener(() => {
@@ -34,9 +35,13 @@ public class OptionsUI : MonoBehaviour {
             PauseGame(false);
             GameSceneManager.LoadScene(GameSceneManager.Scene.Game);
         });
+        edgeScrollingToggle.onValueChanged.AddListener((bool set) => {
+            CameraHandler.Instance.SetEdgeScrolling(set);
+        });
     }
 
     private void Start() {
+        edgeScrollingToggle.SetIsOnWithoutNotify(CameraHandler.Instance.GetEdgeScrolling());
         ShowMusicVolume();
         ShowSoundVolume();
         gameObject.SetActive(false);
