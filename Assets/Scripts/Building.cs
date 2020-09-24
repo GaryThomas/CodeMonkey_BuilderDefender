@@ -7,7 +7,10 @@ public class Building : MonoBehaviour {
     [SerializeField] private Transform buildingDemolishButton;
     [SerializeField] private Transform buildingRepairButton;
     [SerializeField] private Transform buildingDestroyedParticles;
-
+    [SerializeField] private float shakeOnDamageAmount = 5f;
+    [SerializeField] private float shakeOnDamageDuration = 0.1f;
+    [SerializeField] private float shakeOnDeathAmount = 15f;
+    [SerializeField] private float shakeOnDeathDuration = 0.4f;
     private HealthSystem _health;
     private BuildingTypeScriptableObject _buildingType;
 
@@ -30,6 +33,7 @@ public class Building : MonoBehaviour {
 
     private void OnDamage(object sender, EventArgs e) {
         SoundManager.Instance.PlayClip(SoundManager.Instance.clips.BuildingDamaged);
+        CameraShake.Instance.Shake(shakeOnDamageAmount, shakeOnDamageDuration);
         ShowRepairButton();
     }
 
@@ -37,6 +41,7 @@ public class Building : MonoBehaviour {
         Debug.Log(_buildingType.nameString + " Died!");
         SoundManager.Instance.PlayClip(SoundManager.Instance.clips.BuildingDestroyed);
         Instantiate(buildingDestroyedParticles, transform.position, Quaternion.identity);
+        CameraShake.Instance.Shake(shakeOnDeathAmount, shakeOnDeathDuration);
         Destroy(gameObject);
     }
 

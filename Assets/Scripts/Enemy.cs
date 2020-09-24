@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private float targetSearchRadius = 30f;
     [SerializeField] private int maxHealth = 30;
     [SerializeField] private Transform dieParticles;
+    [SerializeField] private float shakeOnDamageAmount = 5f;
+    [SerializeField] private float shakeOnDamageDuration = 0.1f;
+    [SerializeField] private float shakeOnDeathAmount = 7f;
+    [SerializeField] private float shakeOnDeathDuration = 0.15f;
 
     private Rigidbody2D _rb2d;
     private Transform _target;
@@ -36,12 +40,14 @@ public class Enemy : MonoBehaviour {
 
     private void EnemyDamaged(object sender, System.EventArgs e) {
         SoundManager.Instance.PlayClip(SoundManager.Instance.clips.EnemyHit);
+        CameraShake.Instance.Shake(shakeOnDamageAmount, shakeOnDamageDuration);
     }
 
     private void EnemyDied(object sender, System.EventArgs e) {
         Debug.Log("Enemy died");
         SoundManager.Instance.PlayClip(SoundManager.Instance.clips.EnemyDie);
         Instantiate(dieParticles, transform.position, Quaternion.identity);
+        CameraShake.Instance.Shake(shakeOnDeathAmount, shakeOnDeathDuration);
         Destroy(gameObject);
     }
 
