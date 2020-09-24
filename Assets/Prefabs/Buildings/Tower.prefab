@@ -136,6 +136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingDemolishButton: {fileID: 3028848179675561684}
   buildingRepairButton: {fileID: 0}
+  buildingDestroyedParticles: {fileID: 222898084527167713, guid: 5731055b57af76744aa0f260d9e0e788,
+    type: 3}
 --- !u!114 &2033936617966095961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f5a36abea0e1c12b0685dda62cb259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookForTargetTime: 0.5
-  shootTargetTime: 0.5
-  targetSearchRadius: 20
+  lookForTargetTime: 0.2
+  shootTargetTime: 0.2
+  targetSearchRadius: 30
   spawnPoint: {fileID: 2756394802961645528}
 --- !u!1 &6743310697880637499
 GameObject:

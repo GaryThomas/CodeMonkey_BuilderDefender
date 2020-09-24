@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 5112024159994949341}
+  _buildingConstructionParticles: {fileID: 1408080632602542178, guid: 4ac58936248f3144db274df6c4356236,
+    type: 3}
 --- !u!61 &8829697687051702927
 BoxCollider2D:
   m_ObjectHideFlags: 0

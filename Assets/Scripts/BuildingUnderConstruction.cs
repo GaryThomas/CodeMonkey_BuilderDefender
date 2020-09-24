@@ -5,11 +5,12 @@ using UnityEngine;
 public class BuildingUnderConstruction : MonoBehaviour {
 
     [SerializeField] private SpriteRenderer _image;
+    [SerializeField] private Transform _buildingConstructionParticles;
+
     private float _constructionTime;
     private float _constructionTimer = 5f;
     private BuildingTypeScriptableObject _buildingType;
     private BoxCollider2D _box;
-    private BuildingTypeRef _ref;
     private Material _constructionMaterial;
 
     public static BuildingUnderConstruction Create(Vector3 position, BuildingTypeScriptableObject buildingType) {
@@ -23,7 +24,6 @@ public class BuildingUnderConstruction : MonoBehaviour {
 
     private void Awake() {
         _box = GetComponent<BoxCollider2D>();
-        _ref = GetComponent<BuildingTypeRef>();
         _constructionMaterial = _image.material;
     }
 
@@ -35,7 +35,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
         BoxCollider2D buildingBox = buildingType.prefab.GetComponent<BoxCollider2D>();
         _box.size = buildingBox.size;
         _box.offset = buildingBox.offset;
-        _ref.buildingType = buildingType;
+        Instantiate(_buildingConstructionParticles, transform.position, Quaternion.identity);
     }
 
     private void Update() {
@@ -43,6 +43,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
         _constructionMaterial.SetFloat("_Progress", 1 - GetConstructionTimerNormalized());
         if (_constructionTimer <= 0) {
             Instantiate(_buildingType.prefab, transform.position, Quaternion.identity);
+            Instantiate(_buildingConstructionParticles, transform.position, Quaternion.identity);
             SoundManager.Instance.PlayClip(SoundManager.Instance.clips.BuildingPlaced);
             Destroy(gameObject);
         }

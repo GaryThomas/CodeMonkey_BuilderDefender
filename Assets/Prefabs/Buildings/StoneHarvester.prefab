@@ -199,6 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingDemolishButton: {fileID: 6722878012402639031}
   buildingRepairButton: {fileID: 0}
+  buildingDestroyedParticles: {fileID: 222898084527167713, guid: 5731055b57af76744aa0f260d9e0e788,
+    type: 3}
 --- !u!1001 &897492936434672772
 PrefabInstance:
   m_ObjectHideFlags: 0

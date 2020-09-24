@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : MonoBehaviour {
-    [SerializeField] Transform buildingDemolishButton;
-    [SerializeField] Transform buildingRepairButton;
+    [SerializeField] private Transform buildingDemolishButton;
+    [SerializeField] private Transform buildingRepairButton;
+    [SerializeField] private Transform buildingDestroyedParticles;
 
     private HealthSystem _health;
     private BuildingTypeScriptableObject _buildingType;
@@ -35,6 +36,7 @@ public class Building : MonoBehaviour {
     private void OnDeath(object sender, EventArgs e) {
         Debug.Log(_buildingType.nameString + " Died!");
         SoundManager.Instance.PlayClip(SoundManager.Instance.clips.BuildingDestroyed);
+        Instantiate(buildingDestroyedParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
