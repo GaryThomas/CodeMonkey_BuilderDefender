@@ -740,6 +740,7 @@ MonoBehaviour:
   musicDecreaseButton: {fileID: 990365623}
   musicVolumeText: {fileID: 1141059495}
   mainMenuButton: {fileID: 1490415740}
+  edgeScrollingToggle: {fileID: 697796850}
 --- !u!1 &205519650
 GameObject:
   m_ObjectHideFlags: 0

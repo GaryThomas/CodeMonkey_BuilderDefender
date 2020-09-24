@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private float lookForTargetTime = 0.2f;
     [SerializeField] private float targetSearchRadius = 30f;
     [SerializeField] private int maxHealth = 30;
+    [SerializeField] private Transform dieParticles;
 
     private Rigidbody2D _rb2d;
     private Transform _target;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour {
     private void EnemyDied(object sender, System.EventArgs e) {
         Debug.Log("Enemy died");
         SoundManager.Instance.PlayClip(SoundManager.Instance.clips.EnemyDie);
+        Instantiate(dieParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
@@ -76,7 +78,7 @@ public class Enemy : MonoBehaviour {
                 }
             }
         }
-        Vector3 dir = _target.position - transform.position;
+        Vector3 dir = (_target.position - transform.position).normalized;
         _rb2d.velocity = dir * moveSpeed;
     }
 
@@ -86,7 +88,7 @@ public class Enemy : MonoBehaviour {
             HealthSystem health = building.GetComponent<HealthSystem>();
             health.TakeDamage(damage);
             // Debug.Log("Destroy Enemy");
-            Destroy(gameObject);
+            _health.TakeDamage(_health.GetMaxHealth() + 1);
         }
     }
 

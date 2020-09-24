@@ -305,11 +305,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b887733517004430a59db25612a0255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
+  moveSpeed: 4.5
   damage: 10
   lookForTargetTime: 0.2
   targetSearchRadius: 30
   maxHealth: 30
+  dieParticles: {fileID: 4850068476918138423, guid: fa53ff3e077270e4d8a679c8fa7de07f,
+    type: 3}
 --- !u!114 &1736008552396350502
 MonoBehaviour:
   m_ObjectHideFlags: 0
