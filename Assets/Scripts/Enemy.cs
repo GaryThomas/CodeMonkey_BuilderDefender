@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private float shakeOnDamageDuration = 0.1f;
     [SerializeField] private float shakeOnDeathAmount = 7f;
     [SerializeField] private float shakeOnDeathDuration = 0.15f;
+    [SerializeField] private float aberationOnDamageLevel = 0.5f;
+    [SerializeField] private float aberationOnDeathLevel = 0.5f;
 
     private Rigidbody2D _rb2d;
     private Transform _target;
@@ -41,6 +43,7 @@ public class Enemy : MonoBehaviour {
     private void EnemyDamaged(object sender, System.EventArgs e) {
         SoundManager.Instance.PlayClip(SoundManager.Instance.clips.EnemyHit);
         CameraShake.Instance.Shake(shakeOnDamageAmount, shakeOnDamageDuration);
+        ChromaticAberationEffect.Instance.SetWeight(aberationOnDamageLevel);
     }
 
     private void EnemyDied(object sender, System.EventArgs e) {
@@ -48,6 +51,7 @@ public class Enemy : MonoBehaviour {
         SoundManager.Instance.PlayClip(SoundManager.Instance.clips.EnemyDie);
         Instantiate(dieParticles, transform.position, Quaternion.identity);
         CameraShake.Instance.Shake(shakeOnDeathAmount, shakeOnDeathDuration);
+        ChromaticAberationEffect.Instance.SetWeight(aberationOnDeathLevel);
         Destroy(gameObject);
     }
 
