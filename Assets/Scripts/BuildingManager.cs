@@ -77,6 +77,16 @@ public class BuildingManager : Singleton<BuildingManager> {
                 }
             }
         }
+        // Make sure there are at least some resources (else this factory would be useless)
+        if (buildingType.hasResourceGeneratorData) {
+            ResourceGeneratorData resourceGeneratorData = buildingType.resourceGeneratorData;
+            int nearbyResources = ResourceGenerator.GetNearbyResources(resourceGeneratorData, pos);
+            if (nearbyResources == 0) {
+                errMsg = "No resources nearby";
+                return false;
+            }
+
+        }
         // Make sure there is at least one other building nearby (no isolationists!)
         colliders = Physics2D.OverlapCircleAll(pos, maxSeparation);
         foreach (Collider2D collider in colliders) {
