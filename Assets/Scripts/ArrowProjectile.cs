@@ -11,9 +11,7 @@ public class ArrowProjectile : MonoBehaviour {
     private Vector3 _lastDir;
 
     public static ArrowProjectile CreateArrowProjectile(Vector3 position, Enemy enemy) {
-        // Can't think of a way to cache this (yet)
-        Transform prefab = Resources.Load<Transform>("ArrowProjectile");
-        Transform xform = Instantiate(prefab, position, Quaternion.identity);
+        Transform xform = Instantiate(GameAssets.Instance.arrowProjectilePrefab, position, Quaternion.identity);
         ArrowProjectile arrowProjectile = xform.GetComponent<ArrowProjectile>();
         arrowProjectile.SetTarget(enemy);
         Destroy(arrowProjectile.gameObject, arrowProjectile.maxLifetime);

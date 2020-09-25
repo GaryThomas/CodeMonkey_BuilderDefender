@@ -23,9 +23,7 @@ public class Enemy : MonoBehaviour {
     private HealthSystem _health;
 
     public static Enemy CreateEnemy(Vector3 position) {
-        // Can't think of a way to cache this (yet)
-        Transform prefab = Resources.Load<Transform>("Enemy");
-        Transform xform = Instantiate(prefab, position, Quaternion.identity);
+        Transform xform = Instantiate(GameAssets.Instance.enemyPrefab, position, Quaternion.identity);
         Enemy enemy = xform.GetComponent<Enemy>();
         xform.GetComponent<HealthSystem>().SetMaxHealth(enemy.maxHealth);
         return enemy;

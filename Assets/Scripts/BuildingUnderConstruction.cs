@@ -14,9 +14,7 @@ public class BuildingUnderConstruction : MonoBehaviour {
     private Material _constructionMaterial;
 
     public static BuildingUnderConstruction Create(Vector3 position, BuildingTypeScriptableObject buildingType) {
-        // Can't think of a way to cache this (yet)
-        Transform prefab = Resources.Load<Transform>("BuildingUnderConstruction");
-        Transform xform = Instantiate(prefab, position, Quaternion.identity);
+        Transform xform = Instantiate(GameAssets.Instance.buildingUnderConstructionPrefab, position, Quaternion.identity);
         BuildingUnderConstruction buildingUnderConstruction = xform.GetComponent<BuildingUnderConstruction>();
         buildingUnderConstruction.Setup(buildingType);
         return buildingUnderConstruction;
